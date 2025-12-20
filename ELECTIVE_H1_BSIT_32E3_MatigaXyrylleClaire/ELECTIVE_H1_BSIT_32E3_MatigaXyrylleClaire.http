@@ -1,0 +1,6 @@
+@ELECTIVE_H1_BSIT_32E3_MatigaXyrylleClaire_HostAddress = http://localhost:5183
+
+GET {{ELECTIVE_H1_BSIT_32E3_MatigaXyrylleClaire_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
