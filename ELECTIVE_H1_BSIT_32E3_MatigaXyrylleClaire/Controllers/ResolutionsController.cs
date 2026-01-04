@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ELECTIVE_H1_BSIT_32E3_MatigaXyrylleClaire.Controllers
 {
-    [Route("api/resolutions")]  // ← FIXED: Changed from [controller] to "resolutions"
+    [Route("api/resolutions")]  
     [ApiController]
-    public class ResolutionsController : ControllerBase  // ← FIXED: Added class declaration and inheritance
+    public class ResolutionsController : ControllerBase  
     {
         private readonly ResolutionService _service;
 
@@ -16,14 +16,9 @@ namespace ELECTIVE_H1_BSIT_32E3_MatigaXyrylleClaire.Controllers
             _service = service;
         }
 
-        // GET: api/resolutions
-        // GET: api/resolutions?isDone=true
-        // GET: api/resolutions?title=walk
-        // GET: api/resolutions?isDone=false&title=read
         [HttpGet]
         public IActionResult GetAll([FromQuery] string? isDone, [FromQuery] string? title)
         {
-            // Validate isDone parameter
             bool? isDoneValue = null;
             if (!string.IsNullOrEmpty(isDone))
             {
@@ -46,7 +41,6 @@ namespace ELECTIVE_H1_BSIT_32E3_MatigaXyrylleClaire.Controllers
             return Ok(new ResolutionListResponse { Items = resolutions });
         }
 
-        // GET: api/resolutions/{id}
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
@@ -74,7 +68,6 @@ namespace ELECTIVE_H1_BSIT_32E3_MatigaXyrylleClaire.Controllers
             return Ok(resolution);
         }
 
-        // POST: api/resolutions
         [HttpPost]
         public IActionResult Create([FromBody] CreateResolutionDto? dto)
         {
@@ -92,11 +85,9 @@ namespace ELECTIVE_H1_BSIT_32E3_MatigaXyrylleClaire.Controllers
             return CreatedAtAction(nameof(GetById), new { id = resolution.Id }, resolution);
         }
 
-        // PUT: api/resolutions/{id}
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] UpdateResolutionDto? dto)
         {
-            // Validate route id
             if (id <= 0)
             {
                 return BadRequest(new ErrorResponse
@@ -107,7 +98,6 @@ namespace ELECTIVE_H1_BSIT_32E3_MatigaXyrylleClaire.Controllers
                 });
             }
 
-            // Validate body
             if (dto == null)
             {
                 return BadRequest(new ErrorResponse
@@ -118,7 +108,6 @@ namespace ELECTIVE_H1_BSIT_32E3_MatigaXyrylleClaire.Controllers
                 });
             }
 
-            // Validate id mismatch
             if (id != dto.Id)
             {
                 return BadRequest(new ErrorResponse
@@ -133,7 +122,6 @@ namespace ELECTIVE_H1_BSIT_32E3_MatigaXyrylleClaire.Controllers
                 });
             }
 
-            // Validate title
             if (string.IsNullOrWhiteSpace(dto.Title))
             {
                 return BadRequest(new ErrorResponse
@@ -144,7 +132,6 @@ namespace ELECTIVE_H1_BSIT_32E3_MatigaXyrylleClaire.Controllers
                 });
             }
 
-            // Update
             var resolution = _service.Update(id, dto);
             if (resolution == null)
             {
@@ -159,7 +146,6 @@ namespace ELECTIVE_H1_BSIT_32E3_MatigaXyrylleClaire.Controllers
             return Ok(resolution);
         }
 
-        // DELETE: api/resolutions/{id}
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

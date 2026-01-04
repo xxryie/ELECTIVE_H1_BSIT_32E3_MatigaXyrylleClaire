@@ -43,7 +43,7 @@ namespace ELECTIVE_H1_BSIT_32E3_MatigaXyrylleClaire.Services
                 CreatedAt = DateTime.UtcNow.AddDays(-8)
             },
         };
-        private static int _nextId = 5;
+        private static int _nextId = 6;
 
         public List<Resolution> GetAll(bool? isDone, string? title)
         {
